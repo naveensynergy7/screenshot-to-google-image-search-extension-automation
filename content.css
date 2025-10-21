@@ -1,0 +1,32 @@
+/* CSS for the Quick Screenshot Tool extension */
+
+#screenshot-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  z-index: 999999 !important;
+  cursor: crosshair !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+}
+
+#selection-rect {
+  position: fixed !important;
+  border: 2px solid #007bff !important;
+  background: rgba(0, 123, 255, 0.1) !important;
+  pointer-events: none !important;
+  z-index: 1000000 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure overlay is always on top */
+#screenshot-overlay * {
+  pointer-events: none !important;
+}
+
+#screenshot-overlay {
+  pointer-events: auto !important;
+}

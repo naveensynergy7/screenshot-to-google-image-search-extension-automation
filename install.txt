@@ -1,0 +1,21 @@
+QUICK INSTALLATION GUIDE
+========================
+
+1. Open Chrome/Edge/Brave browser
+2. Go to chrome://extensions/ (or edge://extensions/ for Edge)
+3. Enable "Developer mode" (toggle switch in top right)
+4. Click "Load unpacked"
+5. Select this folder (the one containing manifest.json)
+6. Click "Allow" when prompted for permissions
+7. Done! Press Ctrl+I to start taking screenshots
+
+TROUBLESHOOTING:
+- If Ctrl+I doesn't work, try refreshing the page
+- Make sure all 4 files are in the same folder
+- Check browser console (F12) for any error messages
+
+FILES REQUIRED:
+- manifest.json
+- background.js  
+- content.js
+- content.css

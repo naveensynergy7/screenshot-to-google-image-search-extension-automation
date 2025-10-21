@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Screenshot Tool",
+  "version": "1.0",
+  "description": "Take screenshots with Ctrl+I and copy to clipboard for Google Image search",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "commands": {
+    "take-screenshot": {
+      "suggested_key": {
+        "default": "Ctrl+I",
+        "mac": "Command+I"
+      },
+      "description": "Take a screenshot"
+    }
+  },
+  "action": {
+    "default_title": "Quick Screenshot Tool"
+  }
+}
