@@ -189,62 +189,13 @@ function navigateToGoogleImages() {
   // Check if we're already on Google Images
   if (window.location.hostname === 'images.google.com') {
     // We're already on Google Images, just trigger the search
-    triggerGoogleImageSearch();
+    setTimeout(() => {
+      document.querySelector('div[aria-label="Search by image"]')?.click();
+    }, 1000);
   } else {
     // Navigate to Google Images
     window.location.href = 'https://images.google.com';
-    
-    // Wait for page to load, then trigger search
-    setTimeout(() => {
-      triggerGoogleImageSearch();
-    }, 2000);
   }
-}
-
-// Trigger Google Image search
-function triggerGoogleImageSearch() {
-  // Wait a bit for the page to fully load
-  setTimeout(() => {
-    try {
-      // Check if we're on Google Images page
-      const isGoogleImages = window.location.hostname === 'images.google.com' || 
-                           window.location.href.includes('images.google.com') ||
-                           document.querySelector('div[aria-label="Search by image"]');
-      
-      if (isGoogleImages) {
-        // Simple and direct approach - only click if button exists
-        const searchButton = document.querySelector('div[aria-label="Search by image"]');
-        if (searchButton) {
-          searchButton.click();
-          
-          // Wait for the upload dialog to appear, then trigger paste
-          setTimeout(() => {
-            // Look for the file input or paste area
-            const fileInput = document.querySelector('input[type="file"]') ||
-                             document.querySelector('input[accept*="image"]');
-            
-            if (fileInput) {
-              // Focus the input and trigger paste
-              fileInput.focus();
-              document.execCommand('paste');
-            } else {
-              // Try to trigger paste on the document
-              document.execCommand('paste');
-            }
-          }, 500);
-          
-          showNotification('Opening Google Image search...', 'success');
-        } else {
-          showNotification('Search by image button not found', 'error');
-        }
-      } else {
-        showNotification('Not on Google Images page', 'error');
-      }
-    } catch (error) {
-      console.error('Failed to trigger Google Image search:', error);
-      showNotification('Screenshot copied! Please paste manually in Google Images', 'success');
-    }
-  }, 1000);
 }
 
 // Show notification
@@ -298,3 +249,69 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     createOverlay();
   }
 });
+
+// Auto-click search button when Google Images loads
+function autoClickSearchButton() {
+  if (window.location.hostname === 'images.google.com') {
+    setTimeout(async () => {
+      document.querySelector('div[aria-label="Search by image"]')?.click();
+      
+      // Wait for upload dialog to appear, then paste image
+      setTimeout(async () => {
+        await pasteImageFromClipboard();
+      }, 1000);
+    }, 2000);
+  }
+}
+
+// Paste image from clipboard using Clipboard API
+async function pasteImageFromClipboard() {
+  try {
+    const items = await navigator.clipboard.read();
+    for (const item of items) {
+      for (const type of item.types) {
+        if (type.startsWith('image/')) {
+          const blob = await item.getType(type);
+          const file = new File([blob], 'pasted-image.png', { type });
+          
+          // Try to find file input and set the file
+          const fileInput = document.querySelector('input[type="file"]') ||
+                           document.querySelector('input[accept*="image"]');
+          
+          if (fileInput) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+            console.log('✅ Image pasted to file input!');
+            return;
+          } else {
+            // If no file input, try to create a paste event with the image data
+            const pasteEvent = new ClipboardEvent('paste', {
+              bubbles: true,
+              clipboardData: new DataTransfer()
+            });
+            
+            // Add the image to the clipboard data
+            pasteEvent.clipboardData.items.add(file);
+            document.dispatchEvent(pasteEvent);
+            console.log('✅ Image pasted via clipboard event!');
+            return;
+          }
+        }
+      }
+    }
+    console.warn('⚠️ No image found in clipboard');
+  } catch (err) {
+    console.error('Clipboard access denied:', err);
+    // Fallback: try to trigger paste on the document
+    document.execCommand('paste');
+  }
+}
+
+// Check when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', autoClickSearchButton);
+} else {
+  autoClickSearchButton();
+}
