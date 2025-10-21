@@ -1,14 +1,14 @@
 # Quick Screenshot Tool
 
-A browser extension that allows you to take screenshots with a simple keyboard shortcut (Ctrl+I) and copy them directly to your clipboard for easy Google Image search.
+A browser extension that automatically takes screenshots and searches them on Google Images with a single keyboard shortcut (Ctrl+I). Perfect for finding products from social media posts!
 
 ## Features
 
-- **Quick Activation**: Press `Ctrl+I` (or `Cmd+I` on Mac) to start screenshot mode
-- **Drag to Select**: Click and drag to create a rectangular selection area
-- **Clipboard Integration**: Screenshots are automatically copied to your clipboard
-- **Visual Feedback**: Clear visual indicators during screenshot mode
+- **One-Click Workflow**: Press `Ctrl+I` → Drag to select → Automatic Google search
+- **Smart Navigation**: Automatically opens Google Images and clicks "Search by image"
+- **Real Clipboard Integration**: Uses Clipboard API to paste actual image data
 - **Cross-Platform**: Works on all major social media platforms and websites
+- **Zero Manual Steps**: No manual pasting or navigation required
 
 ## Installation
 
@@ -37,70 +37,85 @@ A browser extension that allows you to take screenshots with a simple keyboard s
 
 ## How to Use
 
-1. **Activate Screenshot Mode**
+1. **Take Screenshot**
    - Press `Ctrl+I` (Windows/Linux) or `Cmd+I` (Mac)
    - The screen will darken with a crosshair cursor
+   - Click and drag to select the area you want to search
 
-2. **Select Area**
-   - Click and drag to create a rectangular selection
-   - The selected area will be highlighted in blue
-   - Release the mouse button to capture
+2. **Automatic Magic Happens**
+   - Screenshot is captured and copied to clipboard
+   - Extension automatically navigates to Google Images
+   - "Search by image" button is clicked automatically
+   - Your image is pasted into the upload dialog
+   - Google starts searching for similar images immediately!
 
-3. **Screenshot is Copied**
-   - The screenshot is automatically copied to your clipboard
-   - You'll see a success notification
-   - You can now paste it anywhere (Ctrl+V)
-
-4. **Use with Google Images**
-   - Go to [Google Images](https://images.google.com)
-   - Click the camera icon in the search bar
-   - Paste your screenshot (Ctrl+V)
-   - Google will search for similar images
+3. **View Results**
+   - Google shows similar images and products
+   - Find the exact item you were looking for
+   - Click on results to visit product pages
 
 ## Keyboard Shortcuts
 
-- `Ctrl+I` / `Cmd+I`: Start screenshot mode
+- `Ctrl+I` / `Cmd+I`: Take screenshot and auto-search
 - `Escape`: Cancel screenshot mode
+
+## Perfect For
+
+- **Social Media Shopping**: Find products from Instagram, TikTok, Facebook posts
+- **Fashion Discovery**: Identify clothing, shoes, accessories from images
+- **Product Research**: Find similar items or better prices
+- **Reverse Image Search**: Discover the source of any image
+- **Shopping Inspiration**: Turn any image into a shopping search
 
 ## Troubleshooting
 
 ### Extension Not Working?
-- Make sure you've granted all permissions
+- Make sure you've granted all permissions (especially clipboard access)
 - Try refreshing the page after installing
 - Check that the extension is enabled in `chrome://extensions/`
 
-### Screenshot Not Copied?
+### Screenshot Not Working?
 - Ensure you have clipboard permissions
 - Try selecting a larger area (minimum 10x10 pixels)
 - Check if your browser supports the Clipboard API
 
-### Performance Issues?
-- The extension uses minimal resources
-- If you experience lag, try closing other tabs
-- The overlay is automatically removed after use
+### Google Images Not Opening?
+- The extension automatically navigates to Google Images
+- If it doesn't work, manually go to images.google.com and try again
+- Make sure you're not blocking pop-ups or redirects
 
 ## Technical Details
 
 - **Manifest Version**: 3 (latest Chrome extension standard)
 - **Permissions**: activeTab, clipboardWrite, storage
+- **Clipboard API**: Uses modern browser APIs for real image pasting
 - **Compatibility**: Chrome, Edge, Brave, and other Chromium-based browsers
-- **File Size**: < 10KB total
+- **File Size**: < 15KB total
 
-## Privacy
+## Privacy & Security
 
-- No data is collected or transmitted
-- Screenshots are only stored temporarily in your clipboard
-- All processing happens locally in your browser
+- **No data collection**: No information is transmitted or stored
+- **Local processing**: All screenshot and search operations happen locally
+- **Clipboard only**: Images are only stored temporarily in your clipboard
+- **No tracking**: Extension doesn't track your browsing or searches
+
+## Supported Platforms
+
+Works perfectly on all major social media and shopping platforms:
+- **Instagram** - Find products from posts and stories
+- **TikTok** - Discover items from videos
+- **Facebook** - Search marketplace and posts
+- **Twitter/X** - Find products from tweets
+- **YouTube** - Identify items from videos
+- **Pinterest** - Discover similar pins
+- **Any website** - Works on any image you can see
 
 ## Support
 
-This extension works on all websites including:
-- Instagram
-- Facebook
-- Twitter/X
-- TikTok
-- YouTube
-- Pinterest
-- And any other website
+For issues or questions:
+1. Check browser console (F12 → Console) for error messages
+2. Ensure all permissions are granted
+3. Try refreshing the page and retrying
+4. Make sure you're using a supported browser (Chrome, Edge, Brave)
 
-For issues or feature requests, check the extension files for any errors in the browser console (F12 → Console tab).
+The extension is designed to work seamlessly - if something isn't working, it's usually a permission or browser compatibility issue.
